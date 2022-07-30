@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChilloutVR-LocalTest", "ChilloutVR-LocalTest\ChilloutVR-LocalTest.csproj", "{DEC3D069-5BF8-44B8-A999-1B82EB37A6E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEC3D069-5BF8-44B8-A999-1B82EB37A6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC3D069-5BF8-44B8-A999-1B82EB37A6E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C327EA12-2FF2-44E0-B034-57553E8CA900}
+	EndGlobalSection
+EndGlobal

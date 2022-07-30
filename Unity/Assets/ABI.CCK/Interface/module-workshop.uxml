@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:ScrollView name="objList" class="obj-list" style="position: absolute; height: 442.5px; top: 145.5px; width: 100%; left: -1px;">
+        <Style src="general.uss" />
+        <ui:VisualElement name="CCKModuleObject" class="gui-object" style="width: 100%; height: 100px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 2px; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41);">
+            <ui:VisualElement name="AssetImage" style="width: 13%; height: 100%; background-image: url(&apos;/Assets/ABI.CCK/GUIAssets/cvr_0.png&apos;);" />
+            <ui:VisualElement name="DetailBox" style="position: absolute; left: 13%; width: 87%; height: 100%;">
+                <ui:Label text="Placeholder Module for ChilloutVR CCK" name="ObjectName" style="color: rgb(255, 255, 255); font-size: 16px; -unity-font-style: bold; margin-top: 10px; margin-left: 10px; width: 50%;" />
+                <ui:Label text="By Alpha Blend Interactive" name="Author" style="margin-left: 10px; width: 50%; margin-bottom: 8px;" />
+                <ui:Label text="13.37 MB" name="ObjectSize" style="width: 49%; position: absolute; left: 50%; margin-right: 10px; margin-top: 10px; font-size: 16px; -unity-text-align: upper-right;" />
+                <ui:Button text="Uninstall" name="Uninstall" style="width: 10%; position: absolute; left: 89%; top: 50%;" />
+                <ui:Button text="Update" name="Update" style="width: 10%; left: 89%; top: 20px;" />
+                <ui:Label text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. " name="Description" style="position: absolute; height: 37px; top: 53px; width: 604.1429px; left: 10.85714px; font-size: 11px; white-space: normal;" />
+                <ui:Label text="Yours: v1.0.2 | Current v1.0.4" name="Version" style="position: absolute; width: 263px; left: 426px; -unity-text-align: upper-right; top: 30%;" />
+                <ui:Button text="Install" name="Install" style="width: 10%; position: absolute; left: 89%; top: 50%; display: flex;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ScrollView>
+    <ui:VisualElement style="background-image: url(&apos;/Assets/ABI.CCK/Interface/cck-module-workshop.png&apos;); width: 100%; height: 125px;">
+        <Style src="general.uss" />
+    </ui:VisualElement>
+    <uie:Toolbar name="Toolbar" style="width: 100%; height: 20px;">
+        <Style src="general.uss" />
+        <uie:ToolbarPopupSearchField focusable="True" name="Search" style="justify-content: flex-end; align-items: center; height: 20px; flex-basis: auto; left: 70%; right: auto; position: absolute; width: 30%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+        <uie:ToolbarButton text="Refresh Collection" name="RefreshList" style="position: absolute; height: 100%; -unity-text-align: middle-left;" />
+    </uie:Toolbar>
+</ui:UXML>
