@@ -68,11 +68,11 @@ public class CVRLocalAvatarTest : EditorWindow
         builds.Add(build);
         if (BuildPipeline.BuildAssetBundles(path, builds.ToArray(), BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows) == null)
         {
-            EditorUtility.DisplayDialog("Error", "An error occurred, please check the Console log", "OK");
+            EditorUtility.DisplayDialog("Error", "Built local avatar failed, please check the console log", "OK");
             return;
         }
         SendUDPPacket("{\"type\":\"change_local_avatar\",\"path\":\"" + (path + "temp") + "\"}");
-        EditorUtility.DisplayDialog("Tip", "The local avatar is successfully built, please go to the game to check the effect", "OK");
+        EditorUtility.DisplayDialog("Tip", "Built local avatar successfully, please go to the game to check the effect", "OK");
     }
 
     private static void SendUDPPacket(string msg)

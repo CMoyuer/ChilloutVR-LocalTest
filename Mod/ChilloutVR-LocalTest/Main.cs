@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ChilloutVR_LocalTest
 {
@@ -32,23 +33,37 @@ namespace ChilloutVR_LocalTest
                 try
                 {
                     var info = JObject.Parse(message);
-                    if (!info.ContainsKey("type") || ((string)info["type"]).Equals("change_local_avatar"))
+                    if (info.ContainsKey("type"))
                     {
-                        var path = (string)info["path"];
-                        if (!File.Exists(path)) throw new Exception($"Avatar asset not found: {path}");
-                        MelonLogger.Msg($"Loading local avatar: {path}");
-                        assetBundle = AssetBundle.LoadFromFile(path);
-                        var prefab = assetBundle.LoadAsset<GameObject>(assetBundle.GetAllAssetNames()[0]);
-                        var obj = UnityEngine.Object.Instantiate(prefab);
-                        // obj.transform.SetParent(PlayerSetup.Instance.transform, false);
-                        obj.transform.parent = PlayerSetup.Instance.transform;
-                        obj.transform.localPosition = Vector3.zero;
-                        obj.transform.localEulerAngles = Vector3.zero;
-                        obj.transform.localScale = new Vector3(1, 1, 1);
-                        PlayerSetup.Instance.ClearAvatar();
-                        PlayerSetup.Instance.SetupAvatar(obj);
-                        MelonLogger.Msg($"Load local avatar Success!");
+                        var type = (string)info["type"];
+                        if (type.Equals("change_local_avatar"))
+                        {
+                            var path = (string)info["path"];
+                            if (!File.Exists(path)) throw new Exception($"Avatar asset not found: {path}");
+                            MelonLogger.Msg($"Loading local avatar: {path}");
+                            assetBundle = AssetBundle.LoadFromFile(path);
+                            var prefab = assetBundle.LoadAsset<GameObject>(assetBundle.GetAllAssetNames()[0]);
+                            var obj = UnityEngine.Object.Instantiate(prefab);
+                            // obj.transform.SetParent(PlayerSetup.Instance.transform, false);
+                            obj.transform.parent = PlayerSetup.Instance.transform;
+                            obj.transform.localPosition = Vector3.zero;
+                            obj.transform.localEulerAngles = Vector3.zero;
+                            obj.transform.localScale = new Vector3(1, 1, 1);
+                            PlayerSetup.Instance.ClearAvatar();
+                            PlayerSetup.Instance.SetupAvatar(obj);
+                            MelonLogger.Msg($"Load local avatar Success!");
+                        }
+                        else if (type.Equals("change_local_world"))
+                        {
+                            var path = (string)info["path"];
+                            if (!File.Exists(path)) throw new Exception($"World asset not found: {path}");
+                            MelonLogger.Msg($"Loading local world: {path}");
+                            assetBundle = AssetBundle.LoadFromFile(path);
+                            SceneManager.LoadScene(assetBundle.GetAllScenePaths()[0]);
+                            MelonLogger.Msg($"Load local world Success!");
+                        }
                     }
+
                 }
                 catch (Exception e)
                 {
