@@ -14,7 +14,7 @@ public class CVRLocalAvatarTest : EditorWindow
 {
     private Vector2 mainScrollPos;
     private CVRAvatar avatar;
-    [MenuItem("Moyuer/CVR_LocalTest/Avatar")]
+    [MenuItem("Moyuer/CVR_LocalTest/Avatar", false, 0)]
     private static void ShowWindow()
     {
         GetWindow<CVRLocalAvatarTest>();
@@ -28,14 +28,11 @@ public class CVRLocalAvatarTest : EditorWindow
         GUILayout.Label("CVR Avatar Test");
         GUI.skin.label.fontSize = 12;
         GUI.skin.label.alignment = TextAnchor.MiddleCenter;
-        GUILayout.Label("v0.1");
+        GUILayout.Label("ChilloutVR Local Avatar Test");
         GUI.skin.label.fontSize = 12;
         GUI.skin.label.alignment = TextAnchor.MiddleCenter;
         GUILayout.Label("by: 如梦(Moyuer)");
         GUILayout.Space(10);
-        GUI.skin.label.fontSize = 12;
-        GUI.skin.label.alignment = TextAnchor.MiddleCenter;
-        GUILayout.Label("ChilloutVR Local Avatar Test");
         GUILayout.Space(10);
         avatar = (CVRAvatar)EditorGUILayout.ObjectField("Avatar", avatar, typeof(CVRAvatar), true);
         GUILayout.Space(10);

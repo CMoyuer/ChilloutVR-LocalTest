@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 public class CVRLocalWorldTest : EditorWindow
 {
     private Vector2 mainScrollPos;
-    [MenuItem("Moyuer/CVR_LocalTest/World")]
+    [MenuItem("Moyuer/CVR_LocalTest/World", false, 1)]
     private static void StartTest()
     {
         var scenePath = SceneManager.GetActiveScene().path;
@@ -44,5 +44,13 @@ public class CVRLocalWorldTest : EditorWindow
             client.Close();
         }).Start();
     }
+
+
+    [MenuItem("Moyuer/CVR_LocalTest/Version: 0.2", false,99)]
+    private static void CheckNew()
+    {
+        Application.OpenURL("https://github.com/CMoyuer/ChilloutVR-LocalTest/releases/latest");
+    }
+
 }
 #endif
