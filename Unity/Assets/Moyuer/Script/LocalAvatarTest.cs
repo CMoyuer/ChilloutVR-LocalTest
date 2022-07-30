@@ -51,8 +51,11 @@ public class CVRLocalAvatarTest : EditorWindow
     {
         avatar.SetActive(true);
         var prefabPath = "Assets/temp.prefab";
-        PrefabUtility.SaveAsPrefabAsset(avatar, prefabPath);
-
+        if (PrefabUtility.SaveAsPrefabAsset(avatar, prefabPath) == null)
+        {
+            EditorUtility.DisplayDialog("Error", "An error occurred, please check the Console log", "OK");
+            return;
+        }
         var path = Application.dataPath.Replace("\\", "/");
         if (path.Contains("/")) path = path.Substring(0, path.LastIndexOf("/"));
         path += "/Build/";
@@ -63,8 +66,11 @@ public class CVRLocalAvatarTest : EditorWindow
         build.assetBundleName = "temp";
         build.assetNames = new string[] { prefabPath };
         builds.Add(build);
-        BuildPipeline.BuildAssetBundles(path, builds.ToArray(), BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
-
+        if (BuildPipeline.BuildAssetBundles(path, builds.ToArray(), BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows) == null)
+        {
+            EditorUtility.DisplayDialog("Error", "An error occurred, please check the Console log", "OK");
+            return;
+        }
         SendUDPPacket("{\"type\":\"change_local_avatar\",\"path\":\"" + (path + "temp") + "\"}");
         EditorUtility.DisplayDialog("Tip", "The local avatar is successfully built, please go to the game to check the effect", "OK");
     }

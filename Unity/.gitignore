@@ -74,3 +74,5 @@ crashlytics-build.properties
 # Mine
 /[Aa]ssets/[Tt]est/
 /[Aa]ssets/[Tt]est.meta
+/[Aa]ssets/[Tt]emp.prefab
+/[Aa]ssets/[Tt]emp.prefab.meta
