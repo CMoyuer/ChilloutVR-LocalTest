@@ -1,8 +1,6 @@
 # ChilloutVR-LocalTest
 Mod for chilloutvr local testing
 
-![image](https://user-images.githubusercontent.com/51113234/181871271-114c6ed5-6766-4d9e-a694-7e36b1ea145f.png)
-
 ##  Install
  - First, you will install [MelonLoader](https://github.com/LavaGang/MelonLoader) into ChilloutVR
  - [Download the latest tool file](https://github.com/CMoyuer/ChilloutVR-LocalTest/releases/latest)
