@@ -24,7 +24,7 @@ namespace ChilloutVR_LocalTest
             UDPSocketHelper.Interface.OnMessageReceive = OnChangeLocalAvatar;
         }
 
-        private void OnChangeLocalAvatar(string ip, string message)
+        private void OnChangeLocalAvatar(string ip, string msg)
         {
             if (PlayerSetup.Instance == null) return;
             Loom.QueueOnMainThread(() =>
@@ -32,7 +32,7 @@ namespace ChilloutVR_LocalTest
                 AssetBundle assetBundle = null;
                 try
                 {
-                    var info = JObject.Parse(message);
+                    var info = JObject.Parse(msg);
                     if (info.ContainsKey("type"))
                     {
                         var type = (string)info["type"];
@@ -44,11 +44,10 @@ namespace ChilloutVR_LocalTest
                             assetBundle = AssetBundle.LoadFromFile(path);
                             var prefab = assetBundle.LoadAsset<GameObject>(assetBundle.GetAllAssetNames()[0]);
                             var obj = UnityEngine.Object.Instantiate(prefab);
-                            // obj.transform.SetParent(PlayerSetup.Instance.transform, false);
-                            obj.transform.parent = PlayerSetup.Instance.transform;
+                            obj.name = "_CVRAvatar(Clone)";
+                            obj.transform.parent = PlayerSetup.Instance.transform.Find("[PlayerAvatar]") ?? PlayerSetup.Instance.transform;
                             obj.transform.localPosition = Vector3.zero;
                             obj.transform.localEulerAngles = Vector3.zero;
-                            obj.transform.localScale = new Vector3(1, 1, 1);
                             PlayerSetup.Instance.ClearAvatar();
                             PlayerSetup.Instance.SetupAvatar(obj);
                             MelonLogger.Msg($"Load local avatar Success!");
