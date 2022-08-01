@@ -1,7 +1,12 @@
 # ChilloutVR-LocalTest
 Mod for chilloutvr local testing
 
-##  Install
+## Feature
+ - Support offline testing (not logged in)
+ - Local test avatar
+ - Local test world
+
+## Install
  - First, you will install [MelonLoader](https://github.com/LavaGang/MelonLoader) into ChilloutVR
  - [Download the latest tool file](https://github.com/CMoyuer/ChilloutVR-LocalTest/releases/latest)
  - Put **ChilloutVR-LocalTest.dll** in the **ChilloutVR/Mods** directory
@@ -28,6 +33,10 @@ Mod for chilloutvr local testing
 ![B](https://user-images.githubusercontent.com/51113234/181878552-5ca782a9-cf49-4c61-be62-ee9fa6670fff.png)
 
 ### Version history
+**V0.3 August 2, 2022**
+- Support offline testing of avatars and worlds
+- Tidy up the code
+
 **V0.2.1 July 31, 2022**
  - Fixed a bug where avatar scale didn't work
  - Make the transform of the test avatar consistent with the online model
