@@ -26,3 +26,15 @@ Mod for chilloutvr local testing
 ![A](https://user-images.githubusercontent.com/51113234/181872735-acbc883c-8048-44ac-98f9-c373b3c72fea.png)
 
 ![B](https://user-images.githubusercontent.com/51113234/181878552-5ca782a9-cf49-4c61-be62-ee9fa6670fff.png)
+
+### Version history
+**V0.2.1 July 31, 2022**
+ - Fixed a bug where avatar scale didn't work
+ - Make the transform of the test avatar consistent with the online model
+
+**V0.2 July 30, 2022**
+ - Support local world test
+
+**V0.1 July 29, 2022**
+ - Initial release
+ - Support local avatar test
