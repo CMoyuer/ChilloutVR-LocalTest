@@ -1,6 +1,8 @@
 # ChilloutVR-LocalTest
 Mod for chilloutvr local testing
 
+[中文介绍](https://github.com/CMoyuer/ChilloutVR-LocalTest/blob/main/README_cn.md)
+
 ## Feature
  - Support offline testing (not logged in)
  - Local test avatar
