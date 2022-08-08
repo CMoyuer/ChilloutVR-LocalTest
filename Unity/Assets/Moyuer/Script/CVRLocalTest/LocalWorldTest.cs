@@ -1,6 +1,7 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using ABI.CCK.Components;
 using System.IO;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -12,31 +13,67 @@ namespace MoyuerLocalTest
 {
     public class CVRLocalWorldTest
     {
+
+        public const string BUILDPATH = "Build/LocalWorldTest/";
+        public const string TEMPNAME = "temp";
+
         private Vector2 mainScrollPos;
         [MenuItem("Moyuer/CVR_LocalTest/World", false, 1)]
         private static void StartTest()
         {
             var scenePath = SceneManager.GetActiveScene().path;
-            StartTestWorld(scenePath);
-            EditorUtility.DisplayDialog("Tip", "Built local world successfully , please go to the game to check the effect", "OK");
+
+            if (IsSceneAValidWorld())
+            {
+                StartTestWorld(scenePath);
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Error", "This scene does not contain a CVR World component or contains more than one! Build canceled.", "OK");
+            }
         }
         public static void StartTestWorld(string scenePath)
         {
-            var path = Application.dataPath.Replace("\\", "/");
-            if (path.Contains("/")) path = path.Substring(0, path.LastIndexOf("/"));
-            path += "/Build/";
-            if (Directory.Exists(path)) Directory.Delete(path, true);
-            Directory.CreateDirectory(path);
-            var fileName = path + "temp";
-            if (File.Exists(fileName)) File.Delete(fileName);
+            CreateBuildDirectory();
 
-            var report = BuildPipeline.BuildPlayer(new string[] { scenePath }, fileName, BuildTarget.StandaloneWindows64, BuildOptions.BuildAdditionalStreamedScenes);
+            RemovePreviousBuild();
+
+            var m_Path = (Path.GetDirectoryName(Application.dataPath) + "/" + BUILDPATH).Replace("\\", "/") + TEMPNAME;
+
+            BuildNewWorld(scenePath, m_Path);
+
+            SendUDPWorld(m_Path);
+        }
+
+        private static bool IsSceneAValidWorld()
+        {
+            var worldComponent = Object.FindObjectsOfType<CVRWorld>();
+
+            return (worldComponent.Count() == 1);
+        }
+        private static void BuildNewWorld(string scenePath, string m_Path)
+        {
+            var report = BuildPipeline.BuildPlayer(new string[] { scenePath }, m_Path, BuildTarget.StandaloneWindows64, BuildOptions.BuildAdditionalStreamedScenes);
             if (report == null)
             {
-                EditorUtility.DisplayDialog("Error", "Built local world failed, please check the console log", "OK");
+                EditorUtility.DisplayDialog("Error", "An error occurred while building asset bundle. Please check the console log.", "OK");
                 return;
             }
-            SendUDPPacket("{\"type\":\"change_local_world\",\"path\":\"" + fileName + "\"}");
+        }
+        private static void CreateBuildDirectory()
+        {
+            if (Directory.Exists(BUILDPATH)) Directory.Delete(BUILDPATH, true);
+            Directory.CreateDirectory(BUILDPATH);
+        }
+        private static void RemovePreviousBuild()
+        {
+            var fileName = BUILDPATH + TEMPNAME;
+            if (File.Exists(fileName)) File.Delete(fileName);
+        }
+        private static void SendUDPWorld(string m_Path)
+        {
+            SendUDPPacket("{\"type\":\"change_local_world\",\"path\":\"" + m_Path + "\"}");
+            EditorUtility.DisplayDialog("LocalWorldTest", "Built local world successfully. Please go to the game to check the effect.", "OK");
         }
     }
 }
