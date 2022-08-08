@@ -15,7 +15,7 @@ namespace MoyuerLocalTest
 
     public abstract class LocalTestUtils
     {
-        [MenuItem("Moyuer/CVR_LocalTest/Version: 0.3", false, 99)]
+        [MenuItem("Moyuer/CVR_LocalTest/Version: 0.4", false, 99)]
         private static void CheckNew()
         {
             Application.OpenURL("https://github.com/CMoyuer/ChilloutVR-LocalTest/releases/latest");

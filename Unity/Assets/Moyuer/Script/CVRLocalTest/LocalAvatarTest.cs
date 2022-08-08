@@ -37,11 +37,11 @@ namespace MoyuerLocalTest
             avatar = (CVRAvatar)EditorGUILayout.ObjectField("Avatar", avatar, typeof(CVRAvatar), true);
             GUILayout.Space(10);
 
-            if (avatar == null) 
+            if (avatar == null)
                 EditorGUILayout.HelpBox("Please select your Avatar.", MessageType.Warning);
 
             using (new EditorGUI.DisabledScope(avatar == null))
-                if (GUILayout.Button("Build Test Avatar")) 
+                if (GUILayout.Button("Build Test Avatar"))
                     Build(avatar.gameObject);
 
             if (GUILayout.Button("Reload Previous Build"))
@@ -52,17 +52,27 @@ namespace MoyuerLocalTest
 
         private static void Build(GameObject avatar)
         {
-            SaveTempPrefab(avatar);
+            try
+            {
+                SaveTempPrefab(avatar);
 
-            CreateBuildDirectory();
+                CreateBuildDirectory();
 
-            RemovePreviousBuild();
+                RemovePreviousBuild();
 
-            BuildNewAvatar();
+                BuildNewAvatar();
 
-            SendUDPAvatar();
-            
-            File.Delete(PREFABPATH);
+                SendUDPAvatar();
+
+                File.Delete(PREFABPATH);
+
+                EditorUtility.DisplayDialog("LocalAvatarTest", "Built local avatar successfully. Please go to the game to check the effect.", "OK");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                EditorUtility.DisplayDialog("Error", "An error occurred while saving prefab. Please check the console log.", "OK");
+            }
         }
         private static void Reload()
         {
@@ -70,6 +80,7 @@ namespace MoyuerLocalTest
             if (File.Exists(fileName))
             {
                 SendUDPAvatar();
+                EditorUtility.DisplayDialog("LocalAvatarTest", "Reload previous build successfully. Please go to the game to check the effect.", "OK");
             }
             else
             {
@@ -82,10 +93,7 @@ namespace MoyuerLocalTest
         {
             avatar.SetActive(true);
             if (PrefabUtility.SaveAsPrefabAsset(avatar, PREFABPATH) == null)
-            {
-                EditorUtility.DisplayDialog("Error", "An error occurred while saving prefab. Please check the console log.", "OK");
-                return;
-            }
+                throw new System.Exception("Save as prefab asset failed!");
         }
         private static void BuildNewAvatar()
         {
@@ -95,10 +103,7 @@ namespace MoyuerLocalTest
             build.assetNames = new string[] { PREFABPATH };
             builds.Add(build);
             if (BuildPipeline.BuildAssetBundles(BUILDPATH, builds.ToArray(), BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows) == null)
-            {
-                EditorUtility.DisplayDialog("Error", "An error occurred while building asset bundle. Please check the console log.", "OK");
-                return;
-            }
+                throw new System.Exception("Build asset bundles failed!");
         }
         private static void CreateBuildDirectory()
         {
@@ -114,7 +119,6 @@ namespace MoyuerLocalTest
         {
             var m_Path = (Path.GetDirectoryName(Application.dataPath) + "/" + BUILDPATH).Replace("\\", "/");
             SendUDPPacket("{\"type\":\"change_local_avatar\",\"path\":\"" + (m_Path + TEMPNAME) + "\"}");
-            EditorUtility.DisplayDialog("LocalAvatarTest", "Built local avatar successfully. Please go to the game to check the effect.", "OK");
         }
 
         private static void ModByMoyuer()

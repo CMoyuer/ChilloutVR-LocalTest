@@ -13,11 +13,9 @@ namespace MoyuerLocalTest
 {
     public class CVRLocalWorldTest
     {
-
         public const string BUILDPATH = "Build/LocalWorldTest/";
         public const string TEMPNAME = "temp";
 
-        private Vector2 mainScrollPos;
         [MenuItem("Moyuer/CVR_LocalTest/World", false, 1)]
         private static void StartTest()
         {
@@ -34,15 +32,25 @@ namespace MoyuerLocalTest
         }
         public static void StartTestWorld(string scenePath)
         {
-            CreateBuildDirectory();
+            try
+            {
+                CreateBuildDirectory();
 
-            RemovePreviousBuild();
+                RemovePreviousBuild();
 
-            var m_Path = (Path.GetDirectoryName(Application.dataPath) + "/" + BUILDPATH).Replace("\\", "/") + TEMPNAME;
+                var m_Path = (Path.GetDirectoryName(Application.dataPath) + "/" + BUILDPATH).Replace("\\", "/") + TEMPNAME;
 
-            BuildNewWorld(scenePath, m_Path);
+                BuildNewWorld(scenePath, m_Path);
 
-            SendUDPWorld(m_Path);
+                SendUDPWorld(m_Path);
+
+                EditorUtility.DisplayDialog("LocalWorldTest", "Built local world successfully. Please go to the game to check the effect.", "OK");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                EditorUtility.DisplayDialog("Error", "An error occurred while building asset bundle. Please check the console log.", "OK");
+            }
         }
 
         private static bool IsSceneAValidWorld()
@@ -54,11 +62,7 @@ namespace MoyuerLocalTest
         private static void BuildNewWorld(string scenePath, string m_Path)
         {
             var report = BuildPipeline.BuildPlayer(new string[] { scenePath }, m_Path, BuildTarget.StandaloneWindows64, BuildOptions.BuildAdditionalStreamedScenes);
-            if (report == null)
-            {
-                EditorUtility.DisplayDialog("Error", "An error occurred while building asset bundle. Please check the console log.", "OK");
-                return;
-            }
+            if (report == null) throw new System.Exception("Build asset bundles failed!");
         }
         private static void CreateBuildDirectory()
         {
@@ -73,7 +77,6 @@ namespace MoyuerLocalTest
         private static void SendUDPWorld(string m_Path)
         {
             SendUDPPacket("{\"type\":\"change_local_world\",\"path\":\"" + m_Path + "\"}");
-            EditorUtility.DisplayDialog("LocalWorldTest", "Built local world successfully. Please go to the game to check the effect.", "OK");
         }
     }
 }
