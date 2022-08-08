@@ -33,6 +33,13 @@ ChilloutVR本地测试工具
 ![B](https://user-images.githubusercontent.com/51113234/181878552-5ca782a9-cf49-4c61-be62-ee9fa6670fff.png)
 
 ### 版本更新
+
+**V0.4 2022年8月8日**
+ - 特别感谢NotAKidoS帮助完善以下功能
+ - 添加“加载之前测试的Avatar”功能
+ - 测试世界时要求有一个"CVR World"组件，以避免误触
+ - 优化整理代码
+
 **V0.3 2022年8月2日**
 - 支持“跳过登录”功能（离线测试）
 - 整理代码结构
