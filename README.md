@@ -35,6 +35,12 @@ Mod for chilloutvr local testing
 ![B](https://user-images.githubusercontent.com/51113234/181878552-5ca782a9-cf49-4c61-be62-ee9fa6670fff.png)
 
 ### Version history
+**V0.4 August 8, 2022**
+- Thank to NotAKidoS for the followed improvements
+- Add "Reload previous build avatar" function
+- Requires one **CVR World component** to test world, avoid accidental click
+- Optimize code
+
 **V0.3 August 2, 2022**
 - Support offline testing of avatars and worlds
 - Tidy up the code
